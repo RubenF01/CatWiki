@@ -1,12 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 import type { NextPage } from "next";
+import { useEffect } from "react";
+import useStore from "../store/store";
 import Layout from "../components/Layout";
 import Logo from "../public/CatwikiLogo.svg";
 import Search from "../public/search.svg";
 import ResultBox from "../components/ResultBox";
 import ArrowForward from "../public/arrow-forward.svg";
+import BreedSquare from "../components/BreedSquare";
 
 const Home: NextPage = () => {
+  const breeds = useStore((state) => state.breeds);
+  const getBreeds = useStore((state) => state.getBreeds);
+
+  const indexBreeds = [
+    "Bengal",
+    "Savannah",
+    "Norwegian Forest Cat",
+    "Selkirk Rex",
+  ];
+
+  useEffect(() => {
+    getBreeds();
+  }, [getBreeds]);
+
   return (
     <Layout title="CatWiki">
       <div>
@@ -33,41 +50,60 @@ const Home: NextPage = () => {
 
         {/* Breed showcase */}
         <div className="max-w-[1248px] h-[636px] rounded-b-3xl mx-auto bg-[#E3E1DC]">
-          <div className="max-w-[537px] ml-[108px] pr-10 pt-[111px]">
-            <h1 className="font-montserrat font-black text-[48px] leading-[59px] cursor-default">
-              66+ Breeds For you to discover
-            </h1>
+          <div className="flex justify-between">
+            <div className="max-w-[537px] ml-[108px] pr-10 pt-[111px]">
+              <h1 className="font-montserrat font-black text-[48px] leading-[59px] cursor-default">
+                66+ Breeds For you to discover
+              </h1>
+            </div>
+            <div className="pr-[108px] pt-[195px]">
+              <p className="flex items-center text-lg uppercase text-[#29150799] font-bold cursor-pointer">
+                see more{" "}
+                <span className="pl-[14px]">
+                  <ArrowForward fill="#29150799" />
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex mt-[46px] ml-[108px] space-x-[51px]">
+            {breeds
+              .filter((breed) => indexBreeds.includes(breed.name))
+              .map((breed) => (
+                <BreedSquare key={breed.name} {...breed} />
+              ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 max-w-[1032px] mx-auto">
+        {/* Why have a cat */}
+        <div className="grid grid-cols-2 max-w-[1032px] mx-auto mb-[100px]">
           <div className="font-montserrat">
             <div className="h-[3px] w-[59px] bg-[#4D270C] rounded-full mb-5 mt-44" />
-            <h1 className="w-[455px] text-5xl font-bold pb-[41px]">
+            <h1 className="w-[455px] text-5xl font-bold pb-[41px] cursor-default">
               Why should you have a cat?
             </h1>
-            <p className="text-lg w-[395px] font-medium pb-11">
+            <p className="text-lg w-[395px] font-medium pb-11 cursor-default">
               Having a cat around you can actually trigger the release of
               calming chemicals in your body which lower your stress and anxiety
               levels
             </p>
-            <p className="flex items-center text-lg uppercase text-[#29150799] font-bold">
+            <p className="flex items-center text-lg uppercase text-[#29150799] font-bold cursor-pointer">
               read more{" "}
-              <span>
+              <span className="pl-[14px]">
                 <ArrowForward fill="#29150799" />
               </span>
             </p>
           </div>
 
-          <div className="grid grid-cols-2">
-            <div>
+          <div className="grid grid-cols-2 gap-x-7 mt-[100px]">
+            <div className="space-y-[28px]">
               <img
                 className="h-[167px] w-[273px]"
                 src="/image-2.png"
                 alt="cat image 2"
               />
               <img
-                className="h-[293px] w-[195px]"
+                className="h-[293px] w-[195px] translate-x-[49px]"
                 src="/image-1.png"
                 alt="cat image 1"
               />
