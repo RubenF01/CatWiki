@@ -8,16 +8,19 @@ import { useEffect } from "react";
 import RatingContainer from "../../components/RatingContainer";
 
 const BreedInfo: NextPage = () => {
+  const router = useRouter();
   const getBreedData = useStore((state) => state.getBreedData);
   const breedData = useStore((state) => state.breedData);
-  const router = useRouter();
+  const getImages = useStore((state) => state.getImages);
+  const images = useStore((state) => state.images);
   const id = router.query.name?.toString();
 
   useEffect(() => {
     getBreedData(id);
-  }, [getBreedData]);
+    getImages(id);
+  }, [getBreedData, getImages]);
 
-  console.log(breedData[0]);
+  console.log(images);
 
   const ratingArr = [
     {
@@ -56,7 +59,7 @@ const BreedInfo: NextPage = () => {
 
   return (
     <Layout title={breedData[0]?.breeds[0]?.name}>
-      <div>
+      <div className="font-montserrat">
         <div className="grid grid-cols-2 max-w-[1248px] mx-auto">
           <img
             src={breedData[0]?.url}
@@ -96,9 +99,18 @@ const BreedInfo: NextPage = () => {
           </div>
         </div>
 
-        <div>
-          <h1>Other photos</h1>
-          <div></div>
+        <div className="max-w-[1248px] mx-auto pb-[177px] pt-20">
+          <h1 className="pb-10 text-4xl font-semibold">Other photos</h1>
+          <div className="grid grid-cols-4 gap-y-[51px] justify-items-center">
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image.url}
+                alt={breedData[0]?.breeds[0]?.name}
+                className="w-[278px] h-[278px] object-cover rounded-3xl"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </Layout>

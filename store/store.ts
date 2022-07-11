@@ -32,11 +32,15 @@ interface State {
       stranger_friendly?: number;
     }[];
   }[];
+  images: {
+    url?: string;
+  }[];
   setIsOpen: (isOpen: boolean) => void;
   setSuggestions: (suggestions: object[]) => void;
   setSearchText: (searchText: string) => void;
   getBreeds: () => void;
   getBreedData: (id: string | undefined) => void;
+  getImages: (id: string | undefined) => void;
 }
 
 const useStore = create<State>()((set) => ({
@@ -76,6 +80,7 @@ const useStore = create<State>()((set) => ({
           id,
         },
       });
+      set({ images: response.data });
     } catch (error) {
       console.log(error);
     }
