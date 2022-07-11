@@ -12,6 +12,10 @@ import BreedSquare from "../components/BreedSquare";
 const Home: NextPage = () => {
   const breeds = useStore((state) => state.breeds);
   const getBreeds = useStore((state) => state.getBreeds);
+  const searchText = useStore((state) => state.searchText);
+  const setSearchText = useStore((state) => state.setSearchText);
+  const setSuggestions = useStore((state) => state.setSuggestions);
+  const setIsOpen = useStore((state) => state.setIsOpen);
 
   const indexBreeds = [
     "Bengal",
@@ -23,6 +27,21 @@ const Home: NextPage = () => {
   useEffect(() => {
     getBreeds();
   }, [getBreeds]);
+
+  const onChangeHandler = (text: string) => {
+    let matches: object[] = [];
+    if (text.length > 0) {
+      setIsOpen(true);
+      matches = breeds.filter((breed) => {
+        const regex = new RegExp(`${text}`, "gi");
+        return breed.name.match(regex);
+      });
+    } else {
+      setIsOpen(false);
+    }
+    setSearchText(text);
+    setSuggestions(matches);
+  };
 
   return (
     <Layout title="CatWiki">
@@ -38,6 +57,8 @@ const Home: NextPage = () => {
             </h1>
             <div className="flex items-center rounded-full h-[70px] max-w-[395px] bg-white mt-[52px]">
               <input
+                value={searchText}
+                onChange={(e) => onChangeHandler(e.target.value)}
                 className="w-full h-full text-lg rounded-full font-montserrat focus:outline-none pl-7"
                 type="text"
               />
