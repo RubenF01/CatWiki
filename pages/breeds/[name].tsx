@@ -20,8 +20,6 @@ const BreedInfo: NextPage = () => {
     getImages(id);
   }, [getBreedData, getImages]);
 
-  console.log(images);
-
   const ratingArr = [
     {
       title: "Adaptability",
