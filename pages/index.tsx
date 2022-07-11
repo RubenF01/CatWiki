@@ -16,6 +16,8 @@ const Home: NextPage = () => {
   const setSearchText = useStore((state) => state.setSearchText);
   const setSuggestions = useStore((state) => state.setSuggestions);
   const setIsOpen = useStore((state) => state.setIsOpen);
+  const getTopTen = useStore((state) => state.getTopTen);
+  const topTenSearches = useStore((state) => state.topTenSearches);
 
   const indexBreeds = [
     "Bengal",
@@ -26,7 +28,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     getBreeds();
-  }, [getBreeds]);
+    getTopTen();
+  }, [getBreeds, getTopTen]);
 
   const onChangeHandler = (text: string) => {
     let matches: object[] = [];
@@ -42,6 +45,8 @@ const Home: NextPage = () => {
     setSearchText(text);
     setSuggestions(matches);
   };
+
+  // console.log(topTenSearches);
 
   return (
     <Layout title="CatWiki">

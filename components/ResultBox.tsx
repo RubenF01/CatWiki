@@ -6,6 +6,7 @@ const ResultBox = () => {
   const isOpen = useStore((state) => state.isOpen);
   const setIsOpen = useStore((state) => state.setIsOpen);
   const setSearchText = useStore((state) => state.setSearchText);
+  const updateSearchAmount = useStore((state) => state.updateSearchAmount);
 
   return (
     <div
@@ -21,6 +22,7 @@ const ResultBox = () => {
                 onClick={() => {
                   setIsOpen(false);
                   setSearchText("");
+                  updateSearchAmount(suggestion.id);
                 }}
               >
                 {suggestion.name}
