@@ -16,19 +16,23 @@ const ResultBox = () => {
     >
       <div className="w-[385px] max-h-[220px] overflow-y-scroll rounded-3xl custom-scrollbar">
         <div className="text-lg font-montserrat space-y-[37px] pl-[24px] flex flex-col">
-          {suggestions.map((suggestion) => (
-            <Link href={"/breeds/" + suggestion.id} key={suggestion.name}>
-              <a
-                onClick={() => {
-                  setIsOpen(false);
-                  setSearchText("");
-                  updateSearchAmount(suggestion.id);
-                }}
-              >
-                {suggestion.name}
-              </a>
-            </Link>
-          ))}
+          {suggestions.length > 0 ? (
+            suggestions.map((suggestion) => (
+              <Link href={"/breeds/" + suggestion.id} key={suggestion.name}>
+                <a
+                  onClick={() => {
+                    setIsOpen(false);
+                    setSearchText("");
+                    updateSearchAmount(suggestion.id);
+                  }}
+                >
+                  {suggestion.name}
+                </a>
+              </Link>
+            ))
+          ) : (
+            <p>No matches!</p>
+          )}
         </div>
       </div>
     </div>

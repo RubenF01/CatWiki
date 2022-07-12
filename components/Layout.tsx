@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 type Props = {
   children?: ReactNode;
@@ -19,6 +20,7 @@ const Layout = ({ children, title }: Props) => {
 
       <Header />
       {children}
+      <LoadingOverlay />
       <Footer />
     </div>
   );

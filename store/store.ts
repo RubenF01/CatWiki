@@ -5,9 +5,11 @@ import { supabase } from "../utils/supabaseClient";
 interface State {
   breeds: {
     name: string;
+    id: string;
     image: {
       url: string;
     };
+    description: string;
   }[];
   searchText: string;
   suggestions: {
@@ -37,6 +39,8 @@ interface State {
     url?: string;
   }[];
   topTenSearches: any[] | null;
+  indexBreeds?: string[];
+  loading: boolean;
   setIsOpen: (isOpen: boolean) => void;
   setSuggestions: (suggestions: object[]) => void;
   setSearchText: (searchText: string) => void;
@@ -55,12 +59,16 @@ const useStore = create<State>()((set) => ({
   breedData: [],
   images: [],
   topTenSearches: [],
+  indexBreeds: [],
+  loading: false,
   setIsOpen: (isOpen: boolean) => set((state) => ({ isOpen })),
   setSuggestions: (suggestions: object[]) => set((state) => ({ suggestions })),
   setSearchText: (searchText: string) => set((state) => ({ searchText })),
   getBreeds: async () => {
     try {
+      set({ loading: true });
       const response = await axios.get("/api/breed");
+      set({ loading: false });
       set({ breeds: response.data });
     } catch (err) {
       console.log(err);
@@ -68,11 +76,13 @@ const useStore = create<State>()((set) => ({
   },
   getBreedData: async (id: string | undefined) => {
     try {
+      set({ loading: true });
       const response = await axios.get("/api/breedData", {
         params: {
           id,
         },
       });
+      set({ loading: false });
       set({ breedData: response.data });
     } catch (err) {
       console.log(err);
@@ -80,11 +90,13 @@ const useStore = create<State>()((set) => ({
   },
   getImages: async (id: string | undefined) => {
     try {
+      set({ loading: true });
       const response = await axios.get("/api/images", {
         params: {
           id,
         },
       });
+      set({ loading: false });
       set({ images: response.data });
     } catch (error) {
       console.log(error);
@@ -113,43 +125,22 @@ const useStore = create<State>()((set) => ({
   },
   getTopTen: async () => {
     try {
-      const topTenArr = [];
-      const { data, error } = await supabase.from("searchedBreeds").select();
+      set({ loading: true });
+      const { data, error } = await supabase
+        .from("searchedBreeds")
+        .select("breed")
+        .limit(10)
+        .order("search_amount", { ascending: false });
+      set({ loading: false });
 
-      const sortedData = data?.reduce(
-        (obj, item) => ({ ...obj, [item.breed]: item.search_amount }),
-        {}
+      const topTenBreeds: string[] | undefined = data?.map(
+        ({ breed }) => breed
       );
 
-      // sortedData type is object
+      const indexFour: string[] | undefined = topTenBreeds?.slice(0, 4);
 
-      for (const breed in sortedData) {
-        topTenArr.push(sortedData[breed]);
-      }
-
-      const values = Object.values(sortedData).sort((a, b) => b - a);
-
-      console.log(sortedData);
-      // console.log(topTenArr);
-
-      // const values = data
-      //   ?.map(({ search_amount }) => search_amount)
-      //   .sort((a, b) => b - a)
-      //   .slice(0, 9);
-
-      // const topTen = data?.filter(({ search_amount }) =>
-      //   values?.includes(search_amount)
-      // );
-
-      // const
-      // array = [{ name: "Tim", score: 76 }, { name: "Lucy", score: 23 }, { name: "Jeremy", score: 44 }, { name: "Burns", score: 66 }, { name: "Mike", score: 86 }],
-      // values = array
-      //     .map(({ score }) => score)
-      //     .sort((a, b) => b - a)
-      //     .slice(0, 3),
-      // top3 = array.filter(({ score }) => values.includes(score));
-
-      // set({ breedSearchAmount: data });
+      set({ indexBreeds: indexFour });
+      set({ topTenSearches: topTenBreeds });
     } catch (error) {
       console.log(error);
     }

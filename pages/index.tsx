@@ -8,6 +8,7 @@ import Search from "../public/search.svg";
 import ResultBox from "../components/ResultBox";
 import ArrowForward from "../public/arrow-forward.svg";
 import BreedSquare from "../components/BreedSquare";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const breeds = useStore((state) => state.breeds);
@@ -17,14 +18,7 @@ const Home: NextPage = () => {
   const setSuggestions = useStore((state) => state.setSuggestions);
   const setIsOpen = useStore((state) => state.setIsOpen);
   const getTopTen = useStore((state) => state.getTopTen);
-  const topTenSearches = useStore((state) => state.topTenSearches);
-
-  const indexBreeds = [
-    "Bengal",
-    "Savannah",
-    "Norwegian Forest Cat",
-    "Selkirk Rex",
-  ];
+  const indexBreeds = useStore((state) => state.indexBreeds);
 
   useEffect(() => {
     getBreeds();
@@ -45,8 +39,6 @@ const Home: NextPage = () => {
     setSearchText(text);
     setSuggestions(matches);
   };
-
-  // console.log(topTenSearches);
 
   return (
     <Layout title="CatWiki">
@@ -83,20 +75,22 @@ const Home: NextPage = () => {
               </h1>
             </div>
             <div className="pr-[108px] pt-[195px]">
-              <p className="flex items-center text-lg uppercase text-[#29150799] font-bold cursor-pointer">
-                see more{" "}
-                <span className="pl-[14px]">
-                  <ArrowForward fill="#29150799" />
-                </span>
-              </p>
+              <Link href="/top-ten-breeds">
+                <p className="flex items-center text-lg uppercase text-[#29150799] font-bold cursor-pointer">
+                  see more{" "}
+                  <span className="pl-[14px]">
+                    <ArrowForward fill="#29150799" />
+                  </span>
+                </p>
+              </Link>
             </div>
           </div>
 
           <div className="flex mt-[46px] ml-[108px] space-x-[51px]">
             {breeds
-              .filter((breed) => indexBreeds.includes(breed.name))
+              .filter((breed) => indexBreeds?.includes(breed.id))
               .map((breed) => (
-                <BreedSquare key={breed.name} {...breed} />
+                <BreedSquare key={breed.id} {...breed} />
               ))}
           </div>
         </div>
@@ -113,12 +107,17 @@ const Home: NextPage = () => {
               calming chemicals in your body which lower your stress and anxiety
               levels
             </p>
-            <p className="flex items-center text-lg uppercase text-[#29150799] font-bold cursor-pointer">
-              read more{" "}
-              <span className="pl-[14px]">
-                <ArrowForward fill="#29150799" />
-              </span>
-            </p>
+            <Link href="https://en.wikipedia.org/wiki/Cat">
+              <a
+                target="_blank"
+                className="flex items-center text-lg uppercase text-[#29150799] font-bold cursor-pointer"
+              >
+                read more{" "}
+                <span className="pl-[14px]">
+                  <ArrowForward fill="#29150799" />
+                </span>
+              </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 gap-x-7 mt-[100px]">
