@@ -39,7 +39,6 @@ interface State {
     url?: string;
   }[];
   topTenSearches: any[] | null;
-  indexBreeds?: string[];
   loading: boolean;
   setIsOpen: (isOpen: boolean) => void;
   setSuggestions: (suggestions: object[]) => void;
@@ -59,7 +58,6 @@ const useStore = create<State>()((set) => ({
   breedData: [],
   images: [],
   topTenSearches: [],
-  indexBreeds: [],
   loading: false,
   setIsOpen: (isOpen: boolean) => set((state) => ({ isOpen })),
   setSuggestions: (suggestions: object[]) => set((state) => ({ suggestions })),
@@ -137,9 +135,6 @@ const useStore = create<State>()((set) => ({
         ({ breed }) => breed
       );
 
-      const indexFour: string[] | undefined = topTenBreeds?.slice(0, 4);
-
-      set({ indexBreeds: indexFour });
       set({ topTenSearches: topTenBreeds });
     } catch (error) {
       console.log(error);

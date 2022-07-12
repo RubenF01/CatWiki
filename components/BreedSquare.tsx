@@ -14,7 +14,7 @@ const BreedSquare = ({ name, image, id }: Props) => {
     <div>
       <Link href={"/breeds/" + id}>
         <div
-          className={`rounded-3xl w-[220px] h-[220px] overflow-hidden relative ${
+          className={`rounded-3xl w-[135px] h-[135px] md:w-[170px] md:h-[170px] xl:w-[220px] xl:h-[220px] overflow-hidden relative ${
             name === "Bengal" ? "" : ""
           } `}
         >

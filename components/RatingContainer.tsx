@@ -21,7 +21,7 @@ const RatingContainer = ({ title, value }: Props) => {
     ));
   };
   return (
-    <div className="flex items-center w-[500px] justify-between">
+    <div className="flex items-center w-[330px] md:w-[500px] justify-between">
       <h2 className="font-bold">{title}:</h2>
       <div className={`flex items-center gap-x-2`}>{ratingQuantity(value)}</div>
     </div>

@@ -58,18 +58,18 @@ const BreedInfo: NextPage = () => {
   return (
     <Layout title={breedData[0]?.breeds[0]?.name}>
       <div className="font-montserrat">
-        <div className="grid grid-cols-2 max-w-[1248px] mx-auto">
+        <div className="grid md:grid-cols-2 max-w-[339px] md:max-w-[1248px] mx-auto">
           <img
             src={breedData[0]?.url}
             alt={breedData[0]?.breeds[0]?.name}
-            className="w-[371px] h-[371px] object-cover rounded-2xl border-[1px] border-[#291507] justify-self-end mr-[115px]"
+            className="w-[371px] h-[371px] object-cover rounded-2xl border-[1px] border-[#291507] justify-self-end md:mr-[115px] mb-10 md:mb-0"
           />
           <div>
             <h1 className="text-[#291507] font-semibold text-4xl pb-[25px]">
               {breedData[0]?.breeds[0]?.name}
             </h1>
-            <div className="space-y-[32px]">
-              <p className="font-medium w-[601px] text-lg">
+            <div className="space-y-[32px] text-sm md:text-base">
+              <p className="font-medium w-[339px] md:w-[601px] text-lg">
                 {breedData[0]?.breeds[0]?.description}
               </p>
               <h2 className="font-bold">
@@ -97,9 +97,9 @@ const BreedInfo: NextPage = () => {
           </div>
         </div>
 
-        <div className="max-w-[1248px] mx-auto pb-[177px] pt-20">
+        <div className="max-w-[339px] md:max-w-[1248px] mx-auto pb-[22px] md:pb-[177px] pt-20">
           <h1 className="pb-10 text-4xl font-semibold">Other photos</h1>
-          <div className="grid grid-cols-4 gap-y-[51px] justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-y-[30px] md:gap-y-[51px] justify-items-center">
             {images.map((image, index) => (
               <img
                 key={index}
