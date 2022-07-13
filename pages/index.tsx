@@ -21,6 +21,9 @@ const Home: NextPage = () => {
   const setIsOpen = useStore((state) => state.setIsOpen);
   const getTopTen = useStore((state) => state.getTopTen);
   const topTenSearches = useStore((state) => state.topTenSearches);
+  const setIsMobileSearchOpen = useStore(
+    (state) => state.setIsMobileSearchOpen
+  );
   const isWide = useMedia("(min-width: 1440px)", false);
   const isTablet = useMedia("(min-width: 768px)", false);
 
@@ -66,16 +69,30 @@ const Home: NextPage = () => {
             <h1 className="text-[10px] md:text-2xl max-w-[135px] md:max-w-[371px] text-white font-montserrat leading-3 md:leading-7 pt-[7px] md:pt-3">
               Get to know more about your cat breed
             </h1>
-            <div className="flex items-center rounded-full max-w-[91px] h-[30px] md:max-w-[395px] md:h-[70px] bg-white mt-[18px] xl:mt-[52px]">
-              <input
-                value={searchText}
-                placeholder={isTablet ? "Enter your breed" : "Search"}
-                onChange={(e) => onChangeHandler(e.target.value)}
-                className="w-full h-full text-xs rounded-full md:text-lg font-montserrat focus:outline-none pl-[13px] md:pl-7"
-                type="text"
-              />
-              <Search className="mr-[13px] md:mr-6 w-[25px]" />
-            </div>
+            {isTablet ? (
+              <div className="flex items-center rounded-full max-w-[91px] h-[30px] md:max-w-[395px] md:h-[70px] bg-white mt-[18px] xl:mt-[52px]">
+                <input
+                  value={searchText}
+                  placeholder="Enter your breed"
+                  onChange={(e) => onChangeHandler(e.target.value)}
+                  className="w-full h-full text-xs rounded-full md:text-lg font-montserrat focus:outline-none pl-[13px] md:pl-7"
+                  type="text"
+                />
+                <Search className="mr-[13px] md:mr-6 w-[25px]" />
+              </div>
+            ) : (
+              <div className="flex items-center rounded-full max-w-[91px] h-[30px] md:max-w-[395px] md:h-[70px] bg-white mt-[18px] xl:mt-[52px]">
+                <input
+                  // value={searchText}
+                  placeholder="Search"
+                  onClick={() => setIsMobileSearchOpen(true)}
+                  // onChange={(e) => onChangeHandler(e.target.value)}
+                  className="w-full h-full text-xs rounded-full md:text-lg font-montserrat focus:outline-none pl-[13px] md:pl-7"
+                  type="text"
+                />
+                <Search className="mr-[13px] md:mr-6 w-[25px]" />
+              </div>
+            )}
           </div>
 
           <ResultBox />

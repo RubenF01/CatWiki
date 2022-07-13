@@ -40,6 +40,8 @@ interface State {
   }[];
   topTenSearches: any[] | null;
   loading: boolean;
+  isMobileSearchOpen: boolean;
+  setIsMobileSearchOpen: (isMobileSearchOpen: boolean) => void;
   setIsOpen: (isOpen: boolean) => void;
   setSuggestions: (suggestions: object[]) => void;
   setSearchText: (searchText: string) => void;
@@ -59,6 +61,9 @@ const useStore = create<State>()((set) => ({
   images: [],
   topTenSearches: [],
   loading: false,
+  isMobileSearchOpen: true,
+  setIsMobileSearchOpen: (isMobileSearchOpen: boolean) =>
+    set((state) => ({ isMobileSearchOpen })),
   setIsOpen: (isOpen: boolean) => set((state) => ({ isOpen })),
   setSuggestions: (suggestions: object[]) => set((state) => ({ suggestions })),
   setSearchText: (searchText: string) => set((state) => ({ searchText })),

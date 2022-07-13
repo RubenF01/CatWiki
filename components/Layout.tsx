@@ -3,6 +3,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoadingOverlay from "../components/LoadingOverlay";
+import MobileSearch from "../components/MobileSearch";
 
 type Props = {
   children?: ReactNode;
@@ -20,6 +21,7 @@ const Layout = ({ children, title }: Props) => {
 
       <Header />
       {children}
+      <MobileSearch />
       <LoadingOverlay />
       <Footer />
     </div>
