@@ -66,7 +66,7 @@ const Home: NextPage = () => {
             <h1 className="text-[10px] md:text-2xl max-w-[135px] md:max-w-[371px] text-white font-montserrat leading-3 md:leading-7 pt-[7px] md:pt-3">
               Get to know more about your cat breed
             </h1>
-            <div className="flex items-center rounded-full max-w-[91px] h-[30px] md:max-w-[395px] md:h-[70px] bg-white mt-[18px] md:mt-[52px]">
+            <div className="flex items-center rounded-full max-w-[91px] h-[30px] md:max-w-[395px] md:h-[70px] bg-white mt-[18px] xl:mt-[52px]">
               <input
                 value={searchText}
                 placeholder={isTablet ? "Enter your breed" : "Search"}
@@ -83,11 +83,11 @@ const Home: NextPage = () => {
 
         {/* Breed showcase */}
         <div className="max-w-[339px] h-[523px] md:max-w-[700px] md:h-[800px] xl:max-w-[1248px] xl:h-[636px] rounded-b-3xl mx-auto bg-[#E3E1DC]">
-          <div className="flex flex-col justify-between md:flex-row">
+          <div className="flex flex-col justify-between xl:flex-row">
             {isWide ? null : (
               <div className="font-montserrat pl-[29px] pt-[18px] text-[#291507]">
                 <Link href="/top-ten-breeds">
-                  <a className="block text-xs font-medium">
+                  <a className="block text-xs font-medium md:text-base">
                     Most Searched Breeds
                   </a>
                 </Link>
@@ -95,7 +95,7 @@ const Home: NextPage = () => {
               </div>
             )}
 
-            <div className="max-w-[537px] ml-[29px] md:ml-[108px] pr-10 pt-[17px] md:pt-[111px]">
+            <div className="max-w-[537px] ml-[29px] xl:ml-[108px] pr-10 pt-[17px] xl:pt-[111px]">
               <h1 className="font-montserrat font-black text-lg md:text-[48px] leading-[22px] md:leading-[59px] cursor-default">
                 66+ Breeds For you to discover
               </h1>
@@ -115,7 +115,7 @@ const Home: NextPage = () => {
             ) : null}
           </div>
 
-          <div className="grid grid-cols-2 gap-y-[18px] md:gap-y-0 xl:flex mt-[26px] md:mt-[46px] ml-[29px] md:ml-[108px] xl:space-x-[51px]">
+          <div className="grid grid-cols-2 gap-y-[18px] xl:gap-y-0 xl:flex mt-[26px] md:mt-[46px] ml-[29px] md:ml-[108px] xl:space-x-[51px]">
             {breeds
               .filter((breed) => topTenSearches?.slice(0, 4).includes(breed.id))
               .map((breed) => (

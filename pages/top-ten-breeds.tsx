@@ -17,7 +17,7 @@ const TopTenBreeds: NextPage = () => {
 
   return (
     <Layout title="Top Ten Breeds">
-      <div className="font-montserrat max-w-[1248px] mx-auto pb-[106px]">
+      <div className="font-montserrat max-w-[300px] md:max-w-[650px] xl:max-w-[1248px] mx-auto pb-[106px]">
         <h1 className="text-4xl font-bold pb-[52px]">
           Top 10 most searched breeds
         </h1>
