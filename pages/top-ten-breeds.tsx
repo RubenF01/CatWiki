@@ -18,14 +18,16 @@ const TopTenBreeds: NextPage = () => {
   return (
     <Layout title="Top Ten Breeds">
       <div className="font-montserrat max-w-[300px] md:max-w-[650px] xl:max-w-[1248px] mx-auto pb-[106px]">
-        <h1 className="text-4xl font-bold pb-[52px]">
+        <h1 className="text-4xl font-bold pb-[52px] text-[#291507]">
           Top 10 most searched breeds
         </h1>
         <div className="flex flex-col gap-y-[55px]">
-          {breeds
-            .filter((breed) => topTenSearches?.includes(breed.id))
+          {topTenSearches
+            ?.map((breed) =>
+              breeds.find(({ id }: { id: string }) => id === breed)
+            )
             .map((breed, index) => (
-              <BreedItem key={breed.id} {...breed} index={index} />
+              <BreedItem key={breed?.id} {...breed} index={index} />
             ))}
         </div>
       </div>

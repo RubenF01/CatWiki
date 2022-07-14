@@ -4,10 +4,10 @@ import { supabase } from "../utils/supabaseClient";
 
 interface State {
   breeds: {
-    name: string;
-    id: string;
+    name: string | "";
+    id: string | "";
     image: {
-      url: string;
+      url: string | "";
     };
     description: string;
   }[];
@@ -61,7 +61,7 @@ const useStore = create<State>()((set) => ({
   images: [],
   topTenSearches: [],
   loading: false,
-  isMobileSearchOpen: true,
+  isMobileSearchOpen: false,
   setIsMobileSearchOpen: (isMobileSearchOpen: boolean) =>
     set((state) => ({ isMobileSearchOpen })),
   setIsOpen: (isOpen: boolean) => set((state) => ({ isOpen })),

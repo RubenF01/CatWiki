@@ -26,6 +26,7 @@ const Home: NextPage = () => {
   );
   const isWide = useMedia("(min-width: 1440px)", false);
   const isTablet = useMedia("(min-width: 768px)", false);
+  4;
 
   useEffect(() => {
     getBreeds();
@@ -81,12 +82,13 @@ const Home: NextPage = () => {
                 <Search className="mr-[13px] md:mr-6 w-[25px]" />
               </div>
             ) : (
-              <div className="flex items-center rounded-full max-w-[91px] h-[30px] md:max-w-[395px] md:h-[70px] bg-white mt-[18px] xl:mt-[52px]">
+              <div
+                onClick={() => setIsMobileSearchOpen(true)}
+                className="flex items-center rounded-full max-w-[91px] h-[30px] md:max-w-[395px] md:h-[70px] bg-white mt-[18px] xl:mt-[52px]"
+              >
                 <input
-                  // value={searchText}
+                  disabled
                   placeholder="Search"
-                  onClick={() => setIsMobileSearchOpen(true)}
-                  // onChange={(e) => onChangeHandler(e.target.value)}
                   className="w-full h-full text-xs rounded-full md:text-lg font-montserrat focus:outline-none pl-[13px] md:pl-7"
                   type="text"
                 />
@@ -113,7 +115,7 @@ const Home: NextPage = () => {
             )}
 
             <div className="max-w-[537px] ml-[29px] xl:ml-[108px] pr-10 pt-[17px] xl:pt-[111px]">
-              <h1 className="font-montserrat font-black text-lg md:text-[48px] leading-[22px] md:leading-[59px] cursor-default">
+              <h1 className="font-montserrat font-black text-lg md:text-[48px] leading-[22px] md:leading-[59px] cursor-default text-[#291507]">
                 66+ Breeds For you to discover
               </h1>
             </div>
@@ -133,10 +135,13 @@ const Home: NextPage = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-y-[18px] xl:gap-y-0 xl:flex mt-[26px] md:mt-[46px] ml-[29px] md:ml-[108px] xl:space-x-[51px]">
-            {breeds
-              .filter((breed) => topTenSearches?.slice(0, 4).includes(breed.id))
+            {topTenSearches
+              ?.slice(0, 4)
+              .map((breed) =>
+                breeds.find(({ id }: { id: string }) => id === breed)
+              )
               .map((breed) => (
-                <BreedSquare key={breed.id} {...breed} />
+                <BreedSquare key={breed?.id} {...breed} />
               ))}
           </div>
         </div>
