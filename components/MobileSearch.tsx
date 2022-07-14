@@ -28,15 +28,18 @@ const MobileSearch = () => {
     <div
       className={`${
         isMobileSearchOpen ? "" : "hidden"
-      } fixed inset-0 bg-red-600 h-[412px] rounded-b-xl`}
+      } fixed inset-0 bg-white h-[412px] rounded-b-xl`}
     >
-      <div className="max-w-[339px] mx-auto flex justify-end pt-3">
-        <div onClick={() => setIsMobileSearchOpen(false)}>
+      <div className="w-full flex justify-end pr-[19px] pt-[7px] pb-[30px]">
+        <div
+          className="h-[45px] w-[45px] flex justify-center items-center bg-[#9797971a] rounded-xl"
+          onClick={() => setIsMobileSearchOpen(false)}
+        >
           <Close />
         </div>
       </div>
-      <div>
-        <div className="flex items-center rounded-full max-w-[91px] h-[30px] bg-white mt-[18px]">
+      <div className="max-w-[339px] mx-auto">
+        <div className="flex items-center rounded-full max-w-[339px] h-[45px] bg-white border-black border-[1px]">
           <input
             value={searchText}
             placeholder="Enter your breed"
